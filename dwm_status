@@ -1,24 +1,27 @@
 #!/bin/env python
 
-import time
-import subprocess
 import signal
-from dwm_status_events import add_changed_event_listener, on_signal_callbacks
+import subprocess
+import time
 from threading import Thread
-from components.weather import Weather
-from components.volume import Volume
-from components.brightness import Brightness
-from components.wifi import Wifi
-from components.datetime import DateTime
 
+from components.brightness import Brightness
+from components.datetime import DateTime
+from components.volume import Volume
+from components.weather import Weather
+from components.wifi import Wifi
+from components.ram import Ram
+from dwm_status_events import add_changed_event_listener, on_signal_callbacks
+from status2d import Status2d
 
 status_list = [
     Weather("Costa+Rica"),
     Wifi(),
-    DateTime(),
-    Volume(),
-    Brightness()
+    Ram(),
+    DateTime()
 ]
+
+bundle = [Volume(), Brightness()]
 
 sep = ' | '
 
@@ -31,11 +34,22 @@ def update_status():
         if value == '':
             continue
 
-        name = name + sep + str(stat)
+        name = name + sep + value
 
     name = name + sep
 
-    subprocess.run(["xsetroot", "-name", name])
+    info = ""
+    for stat in bundle:
+        value = str(stat)
+
+        if value == '':
+            continue
+
+        offset = 0 if info == "" else 5
+        info = info + Status2d.offset(offset) + value
+
+    subprocess.run(
+        ["xsetroot", "-name", f"{name}{info}{Status2d.offset(15)}"])
 
 
 def on_change():

@@ -12,7 +12,7 @@ class Brightness:
 
     def get_details(self):
         light = int(float(execute([["xbacklight", "-get"]])))
-        bar = VerticalBar(4, light, xres["11"], 10).draw()
+        bar = VerticalBar(4, light, xres["11"], 5).draw()
         return bar
 
     @on_signal

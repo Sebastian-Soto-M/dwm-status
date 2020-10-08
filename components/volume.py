@@ -12,7 +12,7 @@ class Volume:
 
     def get_details(self):
         vol = int(execute([["pamixer", "--get-volume"]]))
-        bar = VerticalBar(4, vol, xres["14"], 15).draw()
+        bar = VerticalBar(4, vol, xres["14"], 5).draw()
         return bar
 
     @on_signal
