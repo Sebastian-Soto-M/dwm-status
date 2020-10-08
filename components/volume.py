@@ -1,22 +1,18 @@
 #!/bin/python
 
-from subprocess import Popen,PIPE
+from subprocess import Popen, PIPE
 from dwm_status_events import trigger_change_event, on_signal
 from shell_exe import execute
 from threading import Timer, Thread
 
+
 class Volume:
     def __init__(self):
-        self.details = '🔉 {:.>3s}%'.format('0')
+        self.details = ""
         Thread(self.set_details()).start()
 
     def get_details(self):
-        details = execute([
-            ["amixer", "sget", "Master"],
-            ["tail", "-n1"],
-            ["sed", "-r", "s/.*\\[(.*)%\\].*/\\1/"]
-        ]).replace('\n', '')
-        return "🔉 {:>3s}%".format(details)
+        return execute([["pamixer", "--get-volume"]])
 
     @on_signal
     @trigger_change_event

@@ -1,0 +1,51 @@
+#!/bin/env python
+
+import time
+import subprocess
+import signal
+from dwm_status_events import add_changed_event_listener, on_signal_callbacks
+from threading import Thread
+from components.weather import Weather
+from components.volume import Volume
+from components.cpu import CPU
+from components.datetime import DateTime
+
+
+status_list = [
+    #  Weather("Costa+Rica"),
+    Volume(),
+    DateTime(),
+    CPU()
+]
+
+sep = ' | '
+
+
+def update_status():
+    name = ''
+    for stat in status_list:
+        value = str(stat)
+
+        if value == '':
+            continue
+
+        name = name + sep + str(stat)
+
+    name = name + sep
+
+    subprocess.run(["xsetroot", "-name", name])
+
+
+def on_change():
+    update_status()
+
+
+def on_signal(_x, _y):
+    for callback in on_signal_callbacks:
+        Thread(callback())
+
+
+if __name__ == "__main__":
+    add_changed_event_listener(on_change)
+    signal.signal(signal.SIGUSR1, on_signal)
+    update_status()
