@@ -19,6 +19,7 @@ class Brightness:
     @trigger_change_event
     def set_details(self):
         self.details = self.get_details()
+        Timer(10, self.set_details).start()
 
     def __str__(self):
         return self.details
