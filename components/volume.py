@@ -1,7 +1,8 @@
-from subprocess import Popen, PIPE
-from dwm_status_events import trigger_change_event, on_signal
-from shell_exe import execute
-from threading import Timer, Thread
+from threading import Thread, Timer
+
+import sh
+
+from dwm_status_events import on_signal, trigger_change_event
 from status2d import VerticalBar, xres
 
 
@@ -11,7 +12,7 @@ class Volume:
         Thread(self.set_details()).start()
 
     def get_details(self):
-        vol = int(execute([["pamixer", "--get-volume"]]))
+        vol = int(sh.pamixer("--get-volume"))
         bar = VerticalBar(4, vol, xres["14"], 5).draw()
         return bar
 
@@ -19,6 +20,7 @@ class Volume:
     @trigger_change_event
     def set_details(self):
         self.details = self.get_details()
+        Timer(3, self.set_details).start()
 
     def __str__(self):
         return self.details

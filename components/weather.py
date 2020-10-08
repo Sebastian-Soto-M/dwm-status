@@ -1,5 +1,5 @@
 from dwm_status_events import trigger_change_event
-import urllib.request
+import requests
 from threading import Timer, Thread
 import time
 from status2d import Status2d, xres
@@ -14,13 +14,10 @@ class Weather:
     def get_details(self):
         for _x in range(0, 20):
             try:
-                info = urllib.request.urlopen(
-                    self.url).read().decode('utf-8').rstrip()
+                info = requests.get(self.url).text.rstrip()
                 return Status2d.color(xres["11"], info)
-
             except:
-                time.sleep(2)
-        return ''
+                return 'Not Found'
 
     @trigger_change_event
     def set_details(self):

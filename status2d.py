@@ -24,7 +24,7 @@ class Status2d():
 
 class VerticalBar():
     def __init__(self, w, height, c, o):
-        self.max_height = 20
+        self.max_height = 27
         self.h = int(height*(self.max_height-2)/100)
         self.w = w
         self.x = 0

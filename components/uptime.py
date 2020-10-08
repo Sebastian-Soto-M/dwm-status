@@ -13,7 +13,7 @@ class Uptime:
     def get_details(self):
         with open('/proc/uptime', 'r') as f:
             uptime_hours = "{:.3}".format(float(f.readline().split()[0])/3600)
-            return Status2d.color(xres["14"], " ")+uptime_hours
+            return Status2d.color(xres["13"], " ")+uptime_hours
 
     @trigger_change_event
     def set_details(self):

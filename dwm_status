@@ -18,7 +18,7 @@ from status2d import Status2d
 
 status_list = [
     Uptime(),
-    Weather("Costa+Rica"),
+    #  Weather("Costa+Rica"),
     Wifi(),
     Ram(),
     DateTime()

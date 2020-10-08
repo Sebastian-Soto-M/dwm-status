@@ -1,7 +1,8 @@
-from subprocess import Popen, PIPE
-from dwm_status_events import trigger_change_event, on_signal
-from shell_exe import execute
-from threading import Timer, Thread
+from threading import Thread, Timer
+
+import sh
+
+from dwm_status_events import on_signal, trigger_change_event
 from status2d import VerticalBar, xres
 
 
@@ -11,15 +12,19 @@ class Brightness:
         Thread(self.set_details()).start()
 
     def get_details(self):
-        light = int(float(execute([["xbacklight", "-get"]])))
-        bar = VerticalBar(4, light, xres["11"], 5).draw()
+        max_b = int(
+            str(sh.cat("/sys/class/backlight/intel_backlight/max_brightness")).rstrip())
+        actual_b = int(str(
+            sh.cat("/sys/class/backlight/intel_backlight/actual_brightness")).rstrip())
+        val = int(actual_b*100/max_b)
+        bar = VerticalBar(4, val, xres["11"], 5).draw()
         return bar
 
     @on_signal
     @trigger_change_event
     def set_details(self):
         self.details = self.get_details()
-        Timer(10, self.set_details).start()
+        Timer(3, self.set_details).start()
 
     def __str__(self):
         return self.details

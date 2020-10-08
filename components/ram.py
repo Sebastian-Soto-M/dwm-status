@@ -13,11 +13,11 @@ class Ram:
         Thread(self.set_details()).start()
 
     def get_details(self):
-        ram = "{:.3}".format(int(
+        ram = "{:.2}".format(int(
             ' '.join(sh.sed(sh.free("--mebi"), "-n",
                             "2{p;q}").split()).split()[2]
         )/1024)
-        val = Status2d.color(xres["4"], ram)
+        val = Status2d.color(xres["11"], ram)
         return f"{self.icon} {val}"
 
     @ trigger_change_event

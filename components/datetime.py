@@ -10,10 +10,10 @@ class DateTime:
         Thread(self.set_details()).start()
 
     def get_details(self):
-        e1 = Status2d.color(xres["1"], " ")
-        date = Status2d.color(xres["7"], "%^b %d")
-        e2 = Status2d.color(xres["3"], "ﲊ")
-        time = Status2d.color(xres["15"], "%H:%M")
+        e1 = Status2d.color(xres["7"], " ")
+        date = Status2d.color(xres["12"], "%^b %d")
+        e2 = Status2d.color(xres["10"], "ﲊ")
+        time = Status2d.color(xres["12"], "%H:%M")
         return datetime.now().strftime(f'{e1} {date} {e2} {time}')
 
     @trigger_change_event
