@@ -5,14 +5,14 @@ from threading import Timer, Thread
 from status2d import VerticalBar, xres
 
 
-class Volume:
+class Brightness:
     def __init__(self):
         self.details = ""
         Thread(self.set_details()).start()
 
     def get_details(self):
-        vol = int(execute([["pamixer", "--get-volume"]]))
-        bar = VerticalBar(4, vol, xres["14"], 15).draw()
+        light = int(float(execute([["xbacklight", "-get"]])))
+        bar = VerticalBar(4, light, xres["11"], 10).draw()
         return bar
 
     @on_signal
