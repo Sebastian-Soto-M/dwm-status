@@ -1,12 +1,10 @@
-#!/bin/python
-
 from subprocess import Popen, PIPE
 from dwm_status_events import trigger_change_event
 from shell_exe import execute
 from threading import Timer, Thread
 
 
-class CPU:
+class Ram:
     def __init__(self):
         self.details = 'CPU 00.00%'
         Thread(self.set_details()).start()

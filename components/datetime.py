@@ -3,15 +3,20 @@
 from dwm_status_events import trigger_change_event
 from datetime import datetime
 from threading import Timer, Thread
+from status2d import Status2d, xres
 
 
 class DateTime:
     def __init__(self):
-        self.details = '0000-00-00- 00:00'
+        self.details = ''
         Thread(self.set_details()).start()
 
     def get_details(self):
-        return datetime.now().strftime('%Y-%m-%d - %H:%M:%S')
+        e1 = Status2d.color(xres["1"], " ")
+        date = Status2d.color(xres["7"], "%^b %d")
+        e2 = Status2d.color(xres["3"], "ﲊ")
+        time = Status2d.color(xres["15"], "%H:%M")
+        return datetime.now().strftime(f'{e1} {date} {e2} {time}')
 
     @trigger_change_event
     def set_details(self):

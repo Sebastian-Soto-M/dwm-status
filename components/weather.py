@@ -1,9 +1,8 @@
-#!/bin/python
-
 from dwm_status_events import trigger_change_event
 import urllib.request
 from threading import Timer, Thread
 import time
+from status2d import Status2d, xres
 
 
 class Weather:
@@ -15,7 +14,10 @@ class Weather:
     def get_details(self):
         for _x in range(0, 20):
             try:
-                return urllib.request.urlopen(self.url).read().decode('utf-8').rstrip()
+                info = urllib.request.urlopen(
+                    self.url).read().decode('utf-8').rstrip()
+                return Status2d.color(xres["11"], info)
+
             except:
                 time.sleep(2)
         return ''

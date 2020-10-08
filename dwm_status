@@ -7,15 +7,15 @@ from dwm_status_events import add_changed_event_listener, on_signal_callbacks
 from threading import Thread
 from components.weather import Weather
 from components.volume import Volume
-from components.cpu import CPU
+from components.wifi import Wifi
 from components.datetime import DateTime
 
 
 status_list = [
-    #  Weather("Costa+Rica"),
-    Volume(),
+    Weather("Costa+Rica"),
+    Wifi(),
     DateTime(),
-    CPU()
+    Volume()
 ]
 
 sep = ' | '
