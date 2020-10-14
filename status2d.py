@@ -36,3 +36,8 @@ class VerticalBar():
         rect = Status2d.draw(self.x, self.y, self.w, self.h)
         offset = Status2d.offset(self.o)
         return f"{Status2d.color(self.c, rect)}{Status2d.offset(self.o)}"
+
+# Wifi alternative
+#  output = sh.nmcli("-c", "no").split('\n')
+#  connection = output[0].split(' ')[-1]
+#  print(connection)

@@ -15,11 +15,10 @@ class Battery:
         ac = int(sh.cat("/sys/class/power_supply/AC0/online"))
         color = xres["2"]
         if ac == 0:
-            color = xres["3"]
             if cap < 25:
                 color = xres["1"]
-                sh.notify-send("-u", "critical", "Battery Low",
-                               "Plug your charger")
+            else:
+                color = xres["3"]
         return VerticalBar(4, cap, color, 5).draw()
 
     @trigger_change_event

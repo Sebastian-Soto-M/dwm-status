@@ -18,7 +18,7 @@ class Uptime:
     @trigger_change_event
     def set_details(self):
         self.details = self.get_details()
-        Timer(5, self.set_details).start()
+        Timer(60 * 5, self.set_details).start()
 
     def __str__(self):
         return self.details
