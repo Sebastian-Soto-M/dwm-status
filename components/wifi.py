@@ -12,14 +12,11 @@ class Wifi:
         Thread(self.set_details()).start()
 
     def get_details(self):
-        wifi_status = sh.nmcli("-t", "-c", "no", "-f",
-                               "active,ssid", "d", "wifi").split('\n')
-        wifi = ""
-        for current in wifi_status:
-            if re.search(r'^yes:', current):
-                wifi = current.strip('yes:')
-                break
-        return Status2d.color(xres["14"], wifi) if wifi != "" else Status2d.color(xres["9"], 'Not Connected')
+        arr = sh.nmcli("-c", "no").split('\n')[0].split(':')[1].split(' ')
+        if arr[1] != 'disconnected':
+            return Status2d.color(xres["14"], " ".join(arr[3:]))
+        else:
+            return Status2d.color(xres["9"], 'Not Connected')
 
     @on_signal
     @trigger_change_event
