@@ -17,8 +17,8 @@ from dwm_status_events import add_changed_event_listener, on_signal_callbacks
 from status2d import Status2d
 
 status_list = [
+    Weather("Costa+Rica"),
     Uptime(),
-    #  Weather("Costa+Rica"),
     Wifi(),
     Ram(),
     DateTime()

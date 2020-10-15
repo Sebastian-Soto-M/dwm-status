@@ -22,6 +22,8 @@ class Weather:
     @trigger_change_event
     def set_details(self):
         self.details = self.get_details()
+        if self.details == 'Not Found':
+            return Timer(5, self.set_details).start()
         return Timer(60 * 60, self.set_details).start()
 
     def __str__(self):
