@@ -1,10 +1,10 @@
-from shell_exe import execute
+import sh
 
 xres = {}
+xres[str("bg")] = sh.xgetres("background")
+xres[str("fg")] = sh.xgetres("foreground")
 for i in range(0, 16):
-    xres[str(i)] = execute([["xgetres", f"color{i}"]])
-xres["bg"] = execute([["xgetres", "background"]])
-xres["fg"] = execute([["xgetres", "foreground"]])
+    xres[str(i)] = sh.xgetres(f"color{i}")
 
 
 class Status2d():

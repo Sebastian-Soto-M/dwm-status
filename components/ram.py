@@ -1,6 +1,5 @@
 from subprocess import Popen, PIPE
 from dwm_status_events import trigger_change_event
-from shell_exe import execute
 from threading import Timer, Thread
 from status2d import Status2d, xres
 import sh
